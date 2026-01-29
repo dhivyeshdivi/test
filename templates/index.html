@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Silence Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Class Silence and Network Monitor</h1>
+        <p>Use this tool to detect silence in your online class and check network stability. Notifications will alert you to issues.</p>
+        <button id="start-btn">Start Monitoring</button>
+        <button id="stop-btn">Stop Monitoring</button>
+        <div id="status">Status: Idle</div>
+    </div>
+    <script>
+        document.getElementById('start-btn').addEventListener('click', () => {
+            fetch('/start', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => document.getElementById('status').textContent = data.status);
+        });
+        document.getElementById('stop-btn').addEventListener('click', () => {
+            fetch('/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => document.getElementById('status').textContent = data.status);
+        });
+    </script>
+</body>
+</html>
